@@ -1,0 +1,33 @@
+import * as ews from 'ews-javascript-api';
+import { FolderEnum, SearchResult } from './shared';
+export declare class FindItemsResultBuilder {
+    _service: ews.ExchangeService | undefined;
+    _folder: ews.WellKnownFolderName;
+    _basePropertySet: ews.BasePropertySet;
+    _looupPropertySet: ews.PropertySet;
+    _takeN: number;
+    _offset: number;
+    _offsetBasePoint: ews.OffsetBasePoint;
+    _querystring: string;
+    _readPropertySet: ews.PropertySet;
+    _markAsRead: boolean;
+    _delete: boolean;
+    _saveAttachments: boolean;
+    _getRaw: boolean;
+    _rawBody: boolean;
+    _downloadFolder: string;
+    withService(value: ews.ExchangeService): this;
+    withFolder(value: FolderEnum): this;
+    withTakeN(value: number): this;
+    withOffset(value: number): this;
+    withOffsetBasePoint(value: ews.OffsetBasePoint): this;
+    withQueryString(value: string): this;
+    withMarkAsRead(value: boolean): this;
+    withDelete(value: boolean): this;
+    withGetRaw(value: boolean): this;
+    withSaveAttachments(value: boolean): this;
+    withDownloadsFolder(value: string): this;
+    withRawBody(value: boolean): this;
+    getItems(): Promise<ews.Item[]>;
+    execute(): Promise<ews.Item[] | SearchResult[]>;
+}
