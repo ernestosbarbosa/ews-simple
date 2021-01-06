@@ -30,8 +30,8 @@ export class EmailMessageBuilder {
     return this;
   }
 
-  withBodyType(value: ews.BodyType) {
-    this._bodyType = value;
+  withBodyType(value: 'text' | 'html') {
+    this._bodyType = value === 'text' ? ews.BodyType.Text : ews.BodyType.HTML;
     return this;
   }
 

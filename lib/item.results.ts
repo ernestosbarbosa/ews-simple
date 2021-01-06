@@ -61,8 +61,8 @@ export class FindItemsResultBuilder {
     return this;
   }
 
-  withOffsetBasePoint(value: ews.OffsetBasePoint) {
-    this._offsetBasePoint = value;
+  withOffsetBasePoint(value: 'start' | 'end') {
+    this._offsetBasePoint = value === 'start' ? ews.OffsetBasePoint.Beginning : ews.OffsetBasePoint.End;
     return this;
   }
 
@@ -166,9 +166,9 @@ export class FindItemsResultBuilder {
           /*
            * await item.Update(conflictResolution);
            *  where conflictResolution has next numeric values:
-           *    - AlwaysOverwrite: 2  Local property changes overwrite server-side changes.
-           *    - AutoResolve: 1      Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
-           *    - NeverOverwrite: 0   Local property changes are discarded.
+           *    - AlwaysOverwrite:  2  Local property changes overwrite server-side changes.
+           *    - AutoResolve:      1  Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
+           *    - NeverOverwrite:   0  Local property changes are discarded.
            */
           await item.Update(1);
         }
@@ -178,9 +178,9 @@ export class FindItemsResultBuilder {
           /*
            * await item.delete(deleteMode, suppressReadReceipts);
            *  where deleteMode has next numeric values
-           *    - HardDelete: 0         The item or folder will be permanently deleted.
+           *    - HardDelete:         0 The item or folder will be permanently deleted.
            *    - MoveToDeletedItems: 2	The item or folder will be moved to the mailbox's Deleted Items folder.
-           *    - SoftDelete: 1	        The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
+           *    - SoftDelete:         1 The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
            *  where suppressReadReceipts Boolean- true if read receipts should not be sent if the item being deleted has requested a read receipt; otherwise, false.
            */
           await item.Delete(2, true);

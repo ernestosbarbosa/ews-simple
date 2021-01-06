@@ -1,6 +1,6 @@
 {
   "name": "ews-simple",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "This package gives you an API to simplify work with ExchageWebService.",
   "scripts": {
     "build": "tsc",

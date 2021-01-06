@@ -8,6 +8,8 @@
 import * as ews from 'ews-javascript-api';
 import * as util from 'util';
 
+import { ClientVersion } from './shared';
+
 const debug = util.debuglog('client');
 
 export class ClientBuilder {
@@ -17,8 +19,21 @@ export class ClientBuilder {
   _pwd: string | undefined;
   _token: string | undefined;
 
-  withVersion(value: ews.ExchangeVersion) {
-    this._version = value;
+  withVersion(value: ClientVersion) {
+    switch (value) {
+      case ClientVersion.Exchange2010:
+        this._version = ews.ExchangeVersion.Exchange2010;
+        break;
+      case ClientVersion.Exchange2015:
+        this._version = ews.ExchangeVersion.Exchange2015;
+        break;
+      case ClientVersion.Exchange2016:
+        this._version = ews.ExchangeVersion.Exchange2016;
+        break;
+      case ClientVersion.Exchange2013:
+      default:
+        this._version = ews.ExchangeVersion.Exchange2013;
+    }
     return this;
   }
 

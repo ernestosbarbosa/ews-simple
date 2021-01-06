@@ -8,7 +8,7 @@ This package is build on top of **ews-javascript-api** and makes performing EWS 
 This builder should allow you to configure EWS service with the specified url and auth data.
 
 Supported methods:
-  1. **withVersion** *(value: ews.ExchangeVersion)* - configures ews vesrsion
+  1. **withVersion** *(value: ClientVersion)* - configures ews version (default value is ClientVersion.Exchange2013)
   2. **withUser** *(value: string)* - configures ews user name
   3. **withPwd** *(value: string)* - configures user pwd
   4. **withUri** *(value: string)* - configures ews server uri
@@ -30,7 +30,7 @@ Supported methods:
   2. **withFolder** *(value: FolderEnum)* - allow to set ews folder to be looked into
   3. **withTakeN** *(value: number)* - allow to set the amount(default *1000*) of items to be returned
   4. **withOffset** *(value: number)* - allow to set offset
-  5. **withOffsetBasePoint** *(value: ews.OffsetBasePoint)* - allow to set base point(*start* or *end*)
+  5. **withOffsetBasePoint** *(value: 'start' | 'end')* - allow to set base point(default *start*)
   6. **withQueryString** *(value: string)* - allow to set query string for search
   7. **withMarkAsRead** *(value: boolean)* - allow to set whether to mark letter as read or not
   8. **withDelete** *(value: boolean)* - allow to set whether do delete letter after read
@@ -66,7 +66,7 @@ This builder should allow you to send a email with the specified data.
 
   1. **withService** *(value: ews.ExchangeService)* - allow set ews service to be linked to
   2. **withSubject** *(value: string)* - allow to set message subject
-  3. **withBodyType** *(value: ews.BodyType)* - allow to set message body content type
+  3. **withBodyType** *(value: 'text' | 'htm;')* - allow to set message body content type (default *text*)
   4. **withBody** *(value: string)* - allow to set message body content
   5. **withTo** *(value: string[])* - allow to set a list of **To** recepients
   6. **withСс** *(value: string[])* - allow to set a list of **Сс** recepients

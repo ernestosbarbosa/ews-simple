@@ -1,4 +1,4 @@
-import { WellKnownFolderName, MessageBody } from "ews-javascript-api";
+import { WellKnownFolderName, MessageBody, ExchangeVersion } from "ews-javascript-api";
 
 export interface IEWSConfig {
   uri: string;
@@ -20,3 +20,10 @@ export interface SearchResult {
   body: string | MessageBody;
   attachments?: { [key: string]: string }
 };
+
+export enum ClientVersion {
+  Exchange2010 = ExchangeVersion.Exchange2010,
+  Exchange2013 = ExchangeVersion.Exchange2013,
+  Exchange2015 = ExchangeVersion.Exchange2015,
+  Exchange2016 = ExchangeVersion.Exchange2016
+}
