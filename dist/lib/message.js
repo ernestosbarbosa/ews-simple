@@ -118,7 +118,7 @@ var EmailMessageBuilder = /** @class */ (function () {
                     case 1:
                         _a.trys.push([1, 3, , 4]);
                         debug('Adding attachment...');
-                        content = fs.readFileSync(this._attachment, 'utf8');
+                        content = fs.readFileSync(this._attachment);
                         message.Attachments.AddFileAttachment(this._attachment, Buffer.from(content).toString('base64'));
                         debug('Sending mail and saving a copy in sent folder...');
                         return [4 /*yield*/, message.SendAndSaveCopy()];
