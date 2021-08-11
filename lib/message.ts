@@ -18,6 +18,7 @@ export class EmailMessageBuilder {
   _body = 'The appointment is with Dr. Smith.';
   _to: string[] | undefined;
   _cc: string[] | undefined;
+  _from: string[] | undefined;
   _attachment: string | undefined;
 
   withService(value: ews.ExchangeService) {
@@ -45,6 +46,11 @@ export class EmailMessageBuilder {
     return this;
   }
 
+  withFrom(value: string[]) {
+    this._from = value;
+    return this;
+  }
+
   withCc(value: string[]) {
     this._cc = value;
     return this;
@@ -67,8 +73,13 @@ export class EmailMessageBuilder {
     message.Subject = this._subject;
     message.Body = new ews.MessageBody(this._bodyType, this._body);
     this._to.map(user => message.ToRecipients.Add(user));
+
     if (this._cc) {
       this._cc.map(user => message.CcRecipients.Add(user));
+    }
+
+    if (this._from) {
+      message.From = new ews.EmailAddress("Reset", "reset@cwi.com.br")
     }
 
     if (this._attachment) {

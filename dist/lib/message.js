@@ -92,6 +92,10 @@ var EmailMessageBuilder = /** @class */ (function () {
         this._to = value;
         return this;
     };
+    EmailMessageBuilder.prototype.withFrom = function (value) {
+        this._from = value;
+        return this;
+    };
     EmailMessageBuilder.prototype.withCc = function (value) {
         this._cc = value;
         return this;
@@ -119,6 +123,9 @@ var EmailMessageBuilder = /** @class */ (function () {
                         this._to.map(function (user) { return message.ToRecipients.Add(user); });
                         if (this._cc) {
                             this._cc.map(function (user) { return message.CcRecipients.Add(user); });
+                        }
+                        if (this._from) {
+                            message.From = new ews.EmailAddress("Reset", "reset@cwi.com.br");
                         }
                         if (!this._attachment) return [3 /*break*/, 5];
                         _a.label = 1;

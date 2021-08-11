@@ -6,12 +6,14 @@ export declare class EmailMessageBuilder {
     _body: string;
     _to: string[] | undefined;
     _cc: string[] | undefined;
+    _from: string[] | undefined;
     _attachment: string | undefined;
     withService(value: ews.ExchangeService): this;
     withSubject(value: string): this;
     withBodyType(value: 'text' | 'html'): this;
     withBody(value: string): this;
     withTo(value: string[]): this;
+    withFrom(value: string[]): this;
     withCc(value: string[]): this;
     withFileAttachment(value: string): this;
     execute(): Promise<void>;
