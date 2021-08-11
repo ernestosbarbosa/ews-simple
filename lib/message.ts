@@ -88,6 +88,7 @@ export class EmailMessageBuilder {
         console.error(err);
       }
     } else {
+      console.log('sem anexo')
       debug('Sending mail and saving a copy in sent folder...');
       await message.SendAndSaveCopy();
       debug('Message was successfully sent!');

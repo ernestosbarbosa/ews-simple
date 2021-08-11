@@ -140,6 +140,7 @@ var EmailMessageBuilder = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 4: return [3 /*break*/, 7];
                     case 5:
+                        console.log('sem anexo');
                         debug('Sending mail and saving a copy in sent folder...');
                         return [4 /*yield*/, message.SendAndSaveCopy()];
                     case 6:
