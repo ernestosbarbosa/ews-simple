@@ -73,7 +73,7 @@ var FindItemsResultBuilder = /** @class */ (function () {
         this._folder = ews.WellKnownFolderName.Inbox;
         this._basePropertySet = ews.BasePropertySet.FirstClassProperties;
         this._looupPropertySet = new ews.PropertySet(this._basePropertySet);
-        this._takeN = 10;
+        this._takeN = 1000;
         this._offset = 0;
         this._offsetBasePoint = ews.OffsetBasePoint.Beginning;
         this._querystring = 'isread:true';
@@ -112,7 +112,7 @@ var FindItemsResultBuilder = /** @class */ (function () {
         return this;
     };
     FindItemsResultBuilder.prototype.withOffsetBasePoint = function (value) {
-        this._offsetBasePoint = value;
+        this._offsetBasePoint = value === 'start' ? ews.OffsetBasePoint.Beginning : ews.OffsetBasePoint.End;
         return this;
     };
     FindItemsResultBuilder.prototype.withQueryString = function (value) {
@@ -236,18 +236,18 @@ var FindItemsResultBuilder = /** @class */ (function () {
                         /*
                          * await item.Update(conflictResolution);
                          *  where conflictResolution has next numeric values:
-                         *    - AlwaysOverwrite: 2  Local property changes overwrite server-side changes.
-                         *    - AutoResolve: 1      Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
-                         *    - NeverOverwrite: 0   Local property changes are discarded.
+                         *    - AlwaysOverwrite:  2  Local property changes overwrite server-side changes.
+                         *    - AutoResolve:      1  Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
+                         *    - NeverOverwrite:   0  Local property changes are discarded.
                          */
                         return [4 /*yield*/, item.Update(1)];
                     case 11:
                         /*
                          * await item.Update(conflictResolution);
                          *  where conflictResolution has next numeric values:
-                         *    - AlwaysOverwrite: 2  Local property changes overwrite server-side changes.
-                         *    - AutoResolve: 1      Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
-                         *    - NeverOverwrite: 0   Local property changes are discarded.
+                         *    - AlwaysOverwrite:  2  Local property changes overwrite server-side changes.
+                         *    - AutoResolve:      1  Local property changes are applied to the server unless the server-side copy is more recent than the local copy.
+                         *    - NeverOverwrite:   0  Local property changes are discarded.
                          */
                         _c.sent();
                         _c.label = 12;
@@ -257,9 +257,9 @@ var FindItemsResultBuilder = /** @class */ (function () {
                         /*
                          * await item.delete(deleteMode, suppressReadReceipts);
                          *  where deleteMode has next numeric values
-                         *    - HardDelete: 0         The item or folder will be permanently deleted.
+                         *    - HardDelete:         0 The item or folder will be permanently deleted.
                          *    - MoveToDeletedItems: 2	The item or folder will be moved to the mailbox's Deleted Items folder.
-                         *    - SoftDelete: 1	        The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
+                         *    - SoftDelete:         1 The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
                          *  where suppressReadReceipts Boolean- true if read receipts should not be sent if the item being deleted has requested a read receipt; otherwise, false.
                          */
                         return [4 /*yield*/, item.Delete(2, true)];
@@ -267,9 +267,9 @@ var FindItemsResultBuilder = /** @class */ (function () {
                         /*
                          * await item.delete(deleteMode, suppressReadReceipts);
                          *  where deleteMode has next numeric values
-                         *    - HardDelete: 0         The item or folder will be permanently deleted.
+                         *    - HardDelete:         0 The item or folder will be permanently deleted.
                          *    - MoveToDeletedItems: 2	The item or folder will be moved to the mailbox's Deleted Items folder.
-                         *    - SoftDelete: 1	        The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
+                         *    - SoftDelete:         1 The item or folder will be moved to the dumpster. Items and folders in the dumpster can be recovered.
                          *  where suppressReadReceipts Boolean- true if read receipts should not be sent if the item being deleted has requested a read receipt; otherwise, false.
                          */
                         _c.sent();

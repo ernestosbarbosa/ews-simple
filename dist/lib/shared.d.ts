@@ -19,3 +19,9 @@ export interface SearchResult {
         [key: string]: string;
     };
 }
+export declare enum ClientVersion {
+    Exchange2010 = 1,
+    Exchange2013 = 4,
+    Exchange2015 = 6,
+    Exchange2016 = 7
+}

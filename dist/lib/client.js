@@ -28,6 +28,7 @@ exports.ClientBuilder = void 0;
 // Dependencies
 var ews = __importStar(require("ews-javascript-api"));
 var util = __importStar(require("util"));
+var shared_1 = require("./shared");
 var debug = util.debuglog('client');
 var ClientBuilder = /** @class */ (function () {
     function ClientBuilder() {
@@ -35,7 +36,20 @@ var ClientBuilder = /** @class */ (function () {
         this._uri = 'https://outlook.office365.com/Ews/Exchange.asmx';
     }
     ClientBuilder.prototype.withVersion = function (value) {
-        this._version = value;
+        switch (value) {
+            case shared_1.ClientVersion.Exchange2010:
+                this._version = ews.ExchangeVersion.Exchange2010;
+                break;
+            case shared_1.ClientVersion.Exchange2015:
+                this._version = ews.ExchangeVersion.Exchange2015;
+                break;
+            case shared_1.ClientVersion.Exchange2016:
+                this._version = ews.ExchangeVersion.Exchange2016;
+                break;
+            case shared_1.ClientVersion.Exchange2013:
+            default:
+                this._version = ews.ExchangeVersion.Exchange2013;
+        }
         return this;
     };
     ClientBuilder.prototype.withUser = function (value) {

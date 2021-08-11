@@ -81,7 +81,7 @@ var EmailMessageBuilder = /** @class */ (function () {
         return this;
     };
     EmailMessageBuilder.prototype.withBodyType = function (value) {
-        this._bodyType = value;
+        this._bodyType = value === 'text' ? ews.BodyType.Text : ews.BodyType.HTML;
         return this;
     };
     EmailMessageBuilder.prototype.withBody = function (value) {
@@ -90,6 +90,10 @@ var EmailMessageBuilder = /** @class */ (function () {
     };
     EmailMessageBuilder.prototype.withTo = function (value) {
         this._to = value;
+        return this;
+    };
+    EmailMessageBuilder.prototype.withCc = function (value) {
+        this._cc = value;
         return this;
     };
     EmailMessageBuilder.prototype.withFileAttachment = function (value) {
@@ -113,12 +117,16 @@ var EmailMessageBuilder = /** @class */ (function () {
                         message.Subject = this._subject;
                         message.Body = new ews.MessageBody(this._bodyType, this._body);
                         this._to.map(function (user) { return message.ToRecipients.Add(user); });
-                        if (!this._attachment) return [3 /*break*/, 4];
+                        if (this._cc) {
+                            this._cc.map(function (user) { return message.CcRecipients.Add(user); });
+                        }
+                        if (!this._attachment) return [3 /*break*/, 5];
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
                         debug('Adding attachment...');
                         content = fs.readFileSync(this._attachment);
+                        // const content = fs.readFileSync(this._attachment, 'utf8');
                         message.Attachments.AddFileAttachment(this._attachment, Buffer.from(content).toString('base64'));
                         debug('Sending mail and saving a copy in sent folder...');
                         return [4 /*yield*/, message.SendAndSaveCopy()];
@@ -130,7 +138,15 @@ var EmailMessageBuilder = /** @class */ (function () {
                         err_1 = _a.sent();
                         console.error(err_1);
                         return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                    case 4: return [3 /*break*/, 7];
+                    case 5:
+                        debug('Sending mail and saving a copy in sent folder...');
+                        return [4 /*yield*/, message.SendAndSaveCopy()];
+                    case 6:
+                        _a.sent();
+                        debug('Message was successfully sent!');
+                        _a.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });

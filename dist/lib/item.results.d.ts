@@ -20,7 +20,7 @@ export declare class FindItemsResultBuilder {
     withFolder(value: FolderEnum): this;
     withTakeN(value: number): this;
     withOffset(value: number): this;
-    withOffsetBasePoint(value: ews.OffsetBasePoint): this;
+    withOffsetBasePoint(value: 'start' | 'end'): this;
     withQueryString(value: string): this;
     withMarkAsRead(value: boolean): this;
     withDelete(value: boolean): this;

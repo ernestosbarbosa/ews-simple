@@ -78,7 +78,8 @@ export class EmailMessageBuilder {
          * AddFileAttachment parameters - filename (name of attachment as shown in outlook/owa not actual file from disk),
          * base64 content of file (read file from disk and convert to base64 yourself)
          */
-        const content = fs.readFileSync(this._attachment, 'utf8');
+        const content = fs.readFileSync(this._attachment);
+        // const content = fs.readFileSync(this._attachment, 'utf8');
         message.Attachments.AddFileAttachment(this._attachment, Buffer.from(content).toString('base64'));
         debug('Sending mail and saving a copy in sent folder...');
         await message.SendAndSaveCopy();
@@ -86,6 +87,10 @@ export class EmailMessageBuilder {
       } catch (err) {
         console.error(err);
       }
+    } else {
+      debug('Sending mail and saving a copy in sent folder...');
+      await message.SendAndSaveCopy();
+      debug('Message was successfully sent!');
     }
   }
 }
